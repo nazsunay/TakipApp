@@ -1,0 +1,51 @@
+﻿@model Transaction
+
+@* <a href="/Home/categoryAdd" class="btn btn-primary">Kategori Ekle</a> *@
+
+<div class="container">
+    <form class="row g-3 mb-1" method="post" action="@Url.Action("UppDate", "Home")" autocomplete="off">
+        <input type="hidden" name="CategoryId" value="@Model.CategoryId" />
+        <input type="hidden" name="TransactionsId" value="@Model.TransactionsId" />
+
+        <div class="col-6 mb-3">
+            <label for="CategoryId" class="form-label">Kategori</label>
+            <select required name="CategoryId" class="form-select" id="CategoryId">
+                <option selected disabled value="@Model.CategoryId">@Model.CategoryName</option>
+                @foreach (var category in ViewBag.Categories)
+                {
+                    <option value="@category.CategoryId">@category.CategoryName</option>
+                }
+            </select>
+        </div>
+
+
+        <div class="mb-3">
+            <label for="Amount" class="form-label">Miktar</label>
+            <input type="number" class="form-control" style="background-color: white" id="Amount" name="Amount" required placeholder="Miktar" value="@Model.Amount" />
+        </div>
+
+        <div class="mb-3">
+            <label for="DateCreated" class="form-label">Tarih</label>
+            <input type="datetime-local" class="form-control" style="background-color: white" id="DateCreated" name="DateCreated" required value="@Model.DateCreated.ToString("yyyy-MM-ddTHH:mm")" />
+        </div>
+
+        <div class="col-6 mb-3">
+            <select required name="Type" class="form-select" id="Type">
+                <option selected disabled value="">Gelir Gider Tipi Giriniz</option>
+                <option value="Gelir" >Gelir</option>
+                <option value="Gider">Gider</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <button type="submit" class="btn btn-primary">Ekle</button>
+        </div>
+
+        @if (ViewData["Mesaj"] != null)
+        {
+            <div class="alert alert-primary" role="alert">
+                @ViewData["Mesaj"]
+            </div>
+        }
+    </form>
+</div>

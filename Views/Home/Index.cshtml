@@ -1,0 +1,49 @@
+﻿@model List<Transaction>
+
+<div class="container" data-bs-theme="dark">
+    <h2 class="text-white">Gelir - Gider Listesi</h2>
+
+
+    <div class="d-flex justify-content-between mb-3">
+        <div class="ms-auto">
+            <div class="d-flex align-items-center mb-3">
+                <a href="/Home/Add" class="btn btn-primary">Gelir - Gider Ekle</a>
+            </div>
+        </div>
+    </div>
+
+
+    <style>
+        .small-input {
+            width: 150px; 
+        }
+    </style>
+
+    <table class="table table-dark">
+        <thead>
+            <tr>
+                <th scope="col" width="20%"> Gelir - Gider Tipi</th>
+                <th scope="col" width="20%">Harcama Kategorisi</th>
+                <th scope="col" width="20%">Harcama Miktarı</th>
+                <th scope="col" width="20%">Harcama Tarihi</th>
+                <th scope="col" width="20%">#</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var category in Model)
+            {
+                <tr>
+                    <td class="text-white">@category.Type</td>
+                    <td class="text-white">@category.CategoryName</td>
+                    <td class="text-white">@category.Amount</td>
+                    <td class="text-white">@category.DateCreated.ToString("dd.MM.yyyy HH:mm")</td>
+                    <td>
+                        <a href="/Home/UppDate/@category.TransactionsId" class="btn btn-primary">Düzenle</a>
+                        <a href="/Home/Delete/@category.TransactionsId" onclick="return confirm('Emin misin?')" class="btn btn-danger">Sil</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

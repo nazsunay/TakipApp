@@ -1,0 +1,48 @@
+﻿@model List<Category>
+
+
+<a href="/Home/categoryAdd" class="btn btn-primary">Kategori Ekle</a>
+
+<div class="container">
+    <form class="row g-3 mb-1" method="post" action="/Home/Add" autocomplete="off">
+        <div class="mb-3">
+            <label for="CategoryId" class="form-label">Kategori</label>
+            <select class="form-select" id="CategoryId" name="CategoryId" required>
+                @foreach (var category in Model)
+                {
+                    <option value="@category.CategoryId">@category.CategoryName</option>
+                }
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="Amount" class="form-label">Miktar</label>
+            <input type="number" class="form-control" style="background-color: white" id="Amount" name="Amount" required placeholder="Miktar" />
+        </div>
+
+        <div class="mb-3">
+            <label for="DateCreated" class="form-label">Tarih</label>
+            <input type="datetime-local" class="form-control" style="background-color: white" id="DateCreated" name="DateCreated" required />
+        </div>
+
+        <div class="col-6 mb-3">
+           @*  <label for="categoryInput" class="form-label">Film Kategori</label> *@
+            <select required name="Type" class="form-select" id="Type">
+                <option selected disabled value="">Gelir Gider Tipi Giriniz</option>
+                <option>Gelir</option>
+                <option>Gider</option>
+               
+            </select>
+        </div>
+        <div class="mb-3">
+            <button type="submit" class="btn btn-primary">Ekle</button>
+        </div>
+
+        @if (ViewData["Mesaj"] != null)
+        {
+            <div class="alert alert-primary" role="alert">
+                @ViewData["Mesaj"]
+            </div>
+        }
+    </form>
+</div>

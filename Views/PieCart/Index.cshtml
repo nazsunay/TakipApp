@@ -1,0 +1,129 @@
+﻿@using Newtonsoft.Json
+@model List<Transaction>
+
+<!-- Chart.js kütüphanesini ekle -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6">
+            <canvas id="myChart" width="400" height="400"></canvas>
+        </div>
+        <div class="col-md-6">
+            <canvas id="gelirVeri" width="400" height="400"></canvas>
+        </div>
+    </div>
+</div>
+
+@{
+    var gelirler = Model.Where(t => t.Type == "Gelir").ToList();
+    var giderler = Model.Where(t => t.Type == "Gider").ToList();
+}
+
+<script>
+    var giderData = @Html.Raw(JsonConvert.SerializeObject(giderler));
+    var gelirData = @Html.Raw(JsonConvert.SerializeObject(gelirler));
+
+    // Gider grafiği
+    var ctxGider = document.getElementById('myChart').getContext('2d');
+    var chartGider = new Chart(ctxGider, {
+        type: 'pie',
+        data: {
+            labels: giderData.map(function (veri) { return veri.CategoryName; }),
+            datasets: [{
+                label: 'Giderler',
+                data: giderData.map(function (data2) { return data2.Amount; }),
+                backgroundColor: [
+                    'rgba(255, 0, 0, 0.7)',   // Kırmızı
+                    'rgba(0, 0, 255, 0.7)',   // Mavi
+                    'rgba(255, 165, 0, 0.7)', // Turuncu
+                    'rgba(0, 255, 0, 0.7)',   // Yeşil
+                    'rgba(128, 0, 128, 0.7)', // Mor
+                    'rgba(255, 255, 0, 0.7)'  // Sarı
+                ],
+                borderColor: [
+                    'rgba(255, 0, 0, 1)',     // Kırmızı
+                    'rgba(0, 0, 255, 1)',     // Mavi
+                    'rgba(255, 165, 0, 1)',   // Turuncu
+                    'rgba(0, 255, 0, 1)',     // Yeşil
+                    'rgba(128, 0, 128, 1)',   // Mor
+                    'rgba(255, 255, 0, 1)'    // Sarı
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function (tooltipItem) {
+                            return tooltipItem.label + ': ' + tooltipItem.raw.toLocaleString();
+                        }
+                    }
+                }
+            }
+        }
+    });
+
+    // Gelir grafiği
+    var ctxGelir = document.getElementById('gelirVeri').getContext('2d');
+    var chartGelir = new Chart(ctxGelir, {
+        type: 'pie',
+        data: {
+            labels: gelirData.map(function (veri) { return veri.CategoryName; }),
+            datasets: [{
+                label: 'Gelirler',
+                data: gelirData.map(function (data2) { return data2.Amount; }),
+                backgroundColor: [
+                    'rgba(255, 0, 0, 0.7)',   // Kırmızı
+                    'rgba(0, 0, 255, 0.7)',   // Mavi
+                    'rgba(255, 165, 0, 0.7)', // Turuncu
+                    'rgba(0, 255, 0, 0.7)',   // Yeşil
+                    'rgba(128, 0, 128, 0.7)', // Mor
+                    'rgba(255, 255, 0, 0.7)'  // Sarı
+                ],
+                borderColor: [
+                    'rgba(255, 0, 0, 1)',     // Kırmızı
+                    'rgba(0, 0, 255, 1)',     // Mavi
+                    'rgba(255, 165, 0, 1)',   // Turuncu
+                    'rgba(0, 255, 0, 1)',     // Yeşil
+                    'rgba(128, 0, 128, 1)',   // Mor
+                    'rgba(255, 255, 0, 1)'    // Sarı
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function (tooltipItem) {
+                            return tooltipItem.label + ': ' + tooltipItem.raw.toLocaleString();
+                        }
+                    }
+                }
+            }
+        }
+    });
+</script>
+
+
+<style>
+    .container {
+        max-width: 1200px; /* Maksimum genişlik */
+    }
+
+    canvas {
+        height: 300px; /* Yükseklik ayarı */
+    }
+</style>

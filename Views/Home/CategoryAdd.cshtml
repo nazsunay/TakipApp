@@ -1,0 +1,15 @@
+﻿@model List<Category>
+
+<div class="container">
+    <form class="row g-3 mb-1" method="post" action="/Home/CategoryAdd" autocomplete="off">
+        <div class="mb-3">
+            <label for="CategoryName" class="form-label">Kategori Adı</label>
+            <input type="text" class="form-control" id="Name" name="Name" required>
+        </div>
+
+        <div class="mb-3">
+            
+            <button type="submit" class="btn btn-primary">Ekle</button>
+        </div>
+    </form>
+</div>
