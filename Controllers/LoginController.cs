@@ -57,7 +57,7 @@ namespace TakipApp.Controllers
             {
                 ViewBag.MessageCssClass = "alert-danger";
                 ViewBag.Message = "Eksik veya hatalı işlem yaptın";
-                return RedirectToAction("Index", "Login"); // Giriş sayfasına yönlendir
+                return RedirectToAction("Index", "Login"); 
             }
 
             using var connection = new SqlConnection(connectionString);
@@ -66,7 +66,7 @@ namespace TakipApp.Controllers
             if (model.Password != model.PasswordRepeat)
             {
                 ViewData["Message"] = "Şifreler uyuşmuyor";
-                return RedirectToAction("Index", "Login"); // Giriş sayfasına yönlendir
+                return RedirectToAction("Index", "Login"); 
             }
             else if (login == null)
             {
@@ -93,12 +93,12 @@ namespace TakipApp.Controllers
             else if (login.Email == model.Email)
             {
                 ViewData["Message"] = "Bu mail kayıtlı";
-                return RedirectToAction("Index", "Login"); // Giriş sayfasına yönlendir
+                return RedirectToAction("Index", "Login");
             }
             else
             {
                 ViewData["Message"] = "Bu kullanıcı adı kayıtlı";
-                return RedirectToAction("Index", "Login"); // Giriş sayfasına yönlendir
+                return RedirectToAction("Index", "Login"); 
             }
         }
 
